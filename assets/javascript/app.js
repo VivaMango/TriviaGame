@@ -73,6 +73,7 @@ console.log(championObject.xayah.R); //FOR TESTING
 
 // Empty Arrays
 //to hold the current question's possible answers
+var currentChampion = ""
 var currentAnswersArray = []
 //to hold the already guessed objects from championObject
 var usedChampions = []
@@ -82,6 +83,15 @@ var playerIncorrect = 0
 // Other Counters
 // var questionsRemaining = (championObject.length - (playerCorrect + playerIncorrect)) COMMENTED OUT UNTIL IMPLEMENTATION
 // console.log(questionsRemaining , "questionsRemaining") //FOR TESTING
+
+
+// Selecting a random champion from the championObject
+function getRandomChamp() {
+
+    var randomChampion = championObject[getRandomInt(0 , 21)]
+    
+}
+
 
 //PLACEHOLDER FOR OUR FOREACH TO GENERATE 5 BUTTONS FROM THE 5 ANSWERS IN currentAnswersArray
 // currentAnswersArray.forEach()
@@ -104,8 +114,8 @@ function championImageCreator() {
 championImageCreator(); //FOR TESTING
 console.log("Where in the world is the rest of the code?") //FOR TESTING
 
-// Answer Button Creator Function
-function answerButtorCreator(champion) {
+// Answer Button Creator Function RUN VIA FOREACH championObject.champion.abilityLetter
+function answerButtorCreator() {
     // storing our jQuery button handler as a variable to make it easier to manipulate
     var answerButton = $("<button>");
 
