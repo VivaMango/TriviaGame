@@ -21,7 +21,7 @@
     <!-- Bootstrap Jumbotron acting as our game header. -->
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
-                <h1 class="display-4"><img src="assets/images/lolicon.png" alt="lolicon"> Welcome to the Ultimate Trivia Game</h1>
+                <h1 class="display-4"><img id ="lolIconImage" src="assets/images/lolicon.png" alt="lolicon"> Welcome to the Ultimate Trivia Game</h1>
                 <p class="lead">Temporary Styling! Check back soon for a new theme!</p>
             </div>
         </div>
@@ -33,17 +33,13 @@
                 <!-- Left Bootstrap Game Display SCOREBOARD AND TIMER -->
                 <div id= "leftGameDisplay" class="col-lg-6">
                     Time Remaining <span id="timerSpan">0</span>
+                    <span id="championImageSpan"></span>
                     <!-- Add Questions Remaining HERE -->
                     <!-- Add Correct Answers Counter HERE -->
                 </div>
                 <!-- Right Bootstrap Game Display POSSIBLE ANSWER BUTTON HOLDER -->
                 <div id= "rightGameDisplay" class="col-lg-6 text-center">
                     Right Game Display
-                    <button type="button" class="btn btn-primary btn-lg">Button 1</button>
-                    <button type="button" class="btn btn-primary btn-lg">Button 2</button>
-                    <button type="button" class="btn btn-primary btn-lg">Button 3</button>
-                    <button type="button" class="btn btn-primary btn-lg">Button 4</button>
-                    <button type="button" class="btn btn-primary btn-lg">Button 5</button>
                 </div>
             </div>
         </div>

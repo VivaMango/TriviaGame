@@ -1,0 +1,11 @@
+
+/* Shrinking the LoL Icon at the top of the Game Display */
+#lolIconImage {
+    width: 150px;
+    height: 150px;
+}
+
+/* Shrinking our placeholder image */
+.championImageClass {
+    width: 10%;
+}

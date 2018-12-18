@@ -71,20 +71,23 @@ var championObject = {
 console.log(championObject.xayah.R); //FOR TESTING
 
 
-// Empty Array to hold the current question's possible answers
+// Empty Arrays
+//to hold the current question's possible answers
 var currentAnswersArray = []
+//to hold the already guessed objects from championObject
+var usedChampions = []
 // Empty Score Counter for our player
 var playerCorrect = 0
 var playerIncorrect = 0
 // Other Counters
-var questionsRemaining = (championObject.length - (playerCorrect + playerIncorrect))
-console.log(questionsRemaining , "questionsRemaining") //FOR TESTING
+// var questionsRemaining = (championObject.length - (playerCorrect + playerIncorrect)) COMMENTED OUT UNTIL IMPLEMENTATION
+// console.log(questionsRemaining , "questionsRemaining") //FOR TESTING
 
 //PLACEHOLDER FOR OUR FOREACH TO GENERATE 5 BUTTONS FROM THE 5 ANSWERS IN currentAnswersArray
-currentAnswersArray.forEach()
+// currentAnswersArray.forEach()
 
-//Answer Button Creation Function
-function championImageMaker() {
+//Champion Image Creation Function
+function championImageCreator() {
     // storing our jQuery image handler as a variable to make it easier to manipulate
     var championImage = $("<img>");
 
@@ -92,16 +95,32 @@ function championImageMaker() {
     championImage.addClass("championImageClass"); //PLACEHOLDER FOR BOOTSTRAP BUTTON CLASSES
 
     // using jQuery to add the image link attribute to our container
-    // championImage.attr("src", "assets/images/"); //relative path to our image file COMMENTED OUT UNTIL IMAGES ARE ADDED
+    championImage.attr("src", "assets/images/carmenSandiego.png"); //relative path to our image file COMMENTED OUT UNTIL IMAGES ARE ADDED
 
     // Adding each button to the DOM via our HTML container with a pre-named ID
     $("#championImageSpan").append(championImage);
 };
 
+championImageCreator(); //FOR TESTING
+console.log("Where in the world is the rest of the code?") //FOR TESTING
 
+// Answer Button Creator Function
+function answerButtorCreator(champion) {
+    // storing our jQuery button handler as a variable to make it easier to manipulate
+    var answerButton = $("<button>");
 
-// PLACEHOLDER FOR FUNCTION TO FILL BUTTONS 1-5 RANDOMLY WITH THE VALUES FROM championObject.champion
+    // Adding button classes for Bootstrap
+    answerButton.addClass("btn btn-primary btn-lg"); //come back to add our button styling
 
+    // Giving our button a type attribute "button" for Bootstrap
+    answerButton.attr("type", "button");
+
+    // Adding the Ability Text to the Answer Button with jQuery
+    answerButton.text("Champion Ability") //Champion Ability Placeholder for testing
+
+    // Adding each button to the DOM via our HTML container with a pre-named ID
+    $("#rightGameDisplay").append(answerButton);
+};
 
 // PLACEHOLDER FOR SETTIMEOUT 300000 AFTER BUTTONS ARE MADE
 
