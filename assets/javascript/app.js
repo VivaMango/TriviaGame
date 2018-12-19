@@ -135,8 +135,6 @@ function ultimateTriviaGame() {
     // Answer Button Creator Function RUN VIA For loop abilityValues
     function answerButtorCreator() {
 
-        // Empties our Right Game Display of previous buttons before creating new buttons
-        $("#RightGameDisplay").empty()
          
         // storing our jQuery button handler as a variable to make it easier to manipulate
         var answerButton = $("<button>");
@@ -255,6 +253,9 @@ $(".answerButtonClass").click(function() {
         playerCorrect++;
         $("#playerCorrectSpan").html(playerCorrect)
         console.log(playerCorrect , "playerCorrect")
+        // Empties our Right Game Display of previous buttons before creating new buttons
+        $("#rightGameDisplay").empty() 
+        ultimateTriviaGame()
     }
     else {
         console.log("Incorrect")
@@ -262,6 +263,9 @@ $(".answerButtonClass").click(function() {
         playerIncorrect++;
         $("#playerIncorrectSpan").html(playerIncorrect)
         console.log(playerIncorrect , "playerIncorrect")
+        // Empties our Right Game Display of previous buttons before creating new buttons
+        $("#rightGameDisplay").empty() 
+        ultimateTriviaGame()
     }
 
 });
