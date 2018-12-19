@@ -98,13 +98,37 @@ var playerIncorrect = 0
 
 
 // Selecting a random champion from the championKeys
-function getRandomChamp() {
+function ultimateTriviaGame() {
+    
+    
     var randomNumber = getRandomInt(0 , 21) //Calling our getRandomInt function (DEF BELOW) to determine a random number (bounds are index values of championKeys array)
-    var currentChampion = championKeys[randomNumber] //Setting a variable to hold our randomly selected champion.
+    // var currentChampion = championKeys[randomNumber] //Setting a variable to hold our randomly selected champion. COMMENTED OUT FOR TESTING IF REMOVABLE
+    function randomChampion(randomNumber) {
+        var selectedChampion = championKeys[randomNumber]
+        var booleanUsedChamp = usedChampions.includes(selectedChampion , 0)
+        console.log(selectedChampion , "selectedChampion")
+        console.log(booleanUsedChamp , "booleanUsedChamp")
+        if (booleanUsedChamp === true) {
+            var preventDuplicate = getRandomInt(0 , 21)
+            var championReroll = randomChampion(preventDuplicate)
+            console.log(championReroll , "ifchampionReroll")
+            return championReroll
+        }
+        else {
+            console.log(selectedChampion , "elseselectedChampion")
+            return selectedChampion
+        }
+
+    }
+    randomChampion(randomNumber) //FORTESTING
+    console.log((randomChampion(randomNumber)) , "calling randomChampion function") //RETURNS A CHAMPION NAME
+
+    var uniqueChampion = randomChampion(randomNumber)
+    console.log (uniqueChampion , "uniqueChamp")
 
     // NEED TO DO SOME CONTROL FLOW TO PREVENT DUPLICATES HERE
 
-    console.log(currentChampion , "currentChampion") //FOR TESTING
+    // console.log(currentChampion , "currentChampion") //FOR TESTING COMMENTED OUT TO SEE IF REMOVABLE
 
 
     // ANSWER BUTTON CREATOR SCOPE ADJUSTMENT === WORKING
@@ -151,10 +175,10 @@ function getRandomChamp() {
     //WHY DOESN'T DOT NOTATION WORK HERE????
     //console.log(championObject.currentChampion . "dot notation")
 
-    console.log(championObject[currentChampion] , "bracket notation")
+    console.log(championObject[uniqueChampion] , "bracket notation") //REPLACED currentChampion with uniqueChampion
 
     // Setting our currentChampion object access to a variable
-    var answerObject = championObject[currentChampion]
+    var answerObject = championObject[uniqueChampion] //REPLACED currentChampion with uniqueChampion
     console.log(answerObject , "answerObject") //FOR TESTING
 
     // Setting our access to the Values of answerObject to a variable
@@ -172,18 +196,18 @@ function getRandomChamp() {
     //For Loop that accesses our championObject, and creates an answerButton for every ability in abilityValues
     for (i = 0; i < abilityValues.length; i++) {
         console.log(abilityValues[i]) //FOR TESTING
-        answerButtorCreator(); // answerButtonCreator (DEF ABOVE) inside getRandomChamp for proper scope
+        answerButtorCreator(); // answerButtonCreator (DEF ABOVE) inside ultimateTriviaGame for proper scope
 
     }
     
     // MAYBE USE PUSH TO FILL usedChampions ARRAY FOR DUPLICATE CONTROL FLOW HERE
-    usedChampions.push(currentChampion)
+    usedChampions.push(uniqueChampion) //REPLACED currentChampion with uniqueChampion
     console.log(usedChampions) //FOR TESTING
 
 }
 
-// Calling getRandomChamp function (DEF ABOVE) to randomly select a champion and generate the answerButtons on our Right Game Display
-getRandomChamp(); //FOR TESTING === WORKING
+// Calling ultimateTriviaGame function (DEF ABOVE) to randomly select a champion and generate the answerButtons on our Right Game Display
+ultimateTriviaGame(); //FOR TESTING === WORKING
 
 
 //Champion Image Creation Function
