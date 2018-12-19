@@ -115,7 +115,10 @@ function getRandomChamp() {
 
         // Adding button classes for Bootstrap
         answerButton.addClass("btn btn-primary btn-lg"); //BOOTSTRAP BUTTON STYLING
+       
         // NEED TO ADD CUSTOM CSS CLASS STYLING HERE
+        //CUSTOM CLASS FOR CSS AND ONCLICK LISTENER
+        answerButton.addClass("answerButtonClass")
 
         // Giving our button a type attribute "button" for Bootstrap
         answerButton.attr("type", "button");
@@ -124,6 +127,15 @@ function getRandomChamp() {
         answerButton.text(abilityValues[i]) //abilityValues[i] defined below, sorted from championObject
 
         //NEED TO ASSIGN A data-ability-key = abilityKey[i] FOR ON CLICK WIN CONDITION COMPARISON HERE
+
+        // saving value of current ability i in loop (DEF BELOW) to a variable
+        var abilityKeyData = abilityKeys[i]
+
+        // converting abilityKeyData toString to use with HTML5 custom data attributes
+        var abilityKeyDataString = abilityKeyData.toString()
+
+        console.log(abilityKeyDataString , "abilityKeyDataString") //FOR TESTING
+        answerButton.data("ability-key-data" , abilityKeyDataString)//FOR TESTING
 
         // Adding each button to the Right Game Display via our HTML container with a pre-named ID
         $("#rightGameDisplay").append(answerButton);
@@ -195,9 +207,31 @@ console.log("Where in the world is the rest of the code?") //FOR TESTING
 
 
 // PLACEHOLDER FOR ONCLICK FUNCTION USING $(THIS) TO COMPARE PLAYER CHOSEN BUTTON WITH CORRECT ANSWER
+$(".answerButtonClass").click(function() {
+
+    // Setting our access to the custom data attribute (DEF ABOVE) from answerButtonCreator function to a variable
+    // USED $(THIS) TO LOCALIZE DATA ATTRIBUTE TO CLICKED BUTTON
+    var abilityKeyOfClick = ($(this).data("ability-key-data"))
+
+    console.log(this , "answerButton click this test")
+    
+    console.log(($(this).data("ability-key-data")) , "ability-key-data test")
+    console.log(abilityKeyOfClick , "abilityKeyOfClick test")
 
 
-// PLACEHOLDER FOR WIN/LOSS CONDITIONS, COUNTER INCREMENTS AND ALERTS
+    // PLACEHOLDER FOR WIN/LOSS CONDITIONS, COUNTER INCREMENTS AND ALERTS
+
+    if (abilityKeyOfClick === "R") {
+        console.log("Correct")
+    }
+    else {
+        console.log("Incorrect")
+    }
+
+});
+
+
+
 
 // PLACEHOLDER FOR RESTART FUNCTION AND INTERVAL RESET FOR TIMER
 
