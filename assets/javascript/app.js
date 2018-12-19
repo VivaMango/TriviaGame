@@ -202,6 +202,45 @@ function ultimateTriviaGame() {
     usedChampions.push(uniqueChampion) //REPLACED currentChampion with uniqueChampion
     console.log(usedChampions) //FOR TESTING
 
+    // PLACEHOLDER FOR ONCLICK FUNCTION USING $(THIS) TO COMPARE PLAYER CHOSEN BUTTON WITH CORRECT ANSWER
+    $(".answerButtonClass").click(function() {
+
+        // Setting our access to the custom data attribute (DEF ABOVE) from answerButtonCreator function to a variable
+        // USED $(THIS) TO LOCALIZE DATA ATTRIBUTE TO CLICKED BUTTON
+        var abilityKeyOfClick = ($(this).data("ability-key-data"))
+
+        console.log(this , "answerButton click this test")
+    
+        console.log(($(this).data("ability-key-data")) , "ability-key-data test")
+        console.log(abilityKeyOfClick , "abilityKeyOfClick test")
+
+
+        // PLACEHOLDER FOR WIN/LOSS CONDITIONS, COUNTER INCREMENTS AND ALERTS
+
+        if (abilityKeyOfClick === "R") {
+            console.log("Correct")
+            alert("You chose correctly! Great job!")
+            playerCorrect++;
+            $("#playerCorrectSpan").html(playerCorrect)
+            console.log(playerCorrect , "playerCorrect")
+            // Empties our Right Game Display of previous buttons before creating new buttons
+            $("#rightGameDisplay").empty() 
+            ultimateTriviaGame()
+        }
+        else {
+            console.log("Incorrect")
+            alert("You chose incorrectly! This isn't Iron 4!")
+            playerIncorrect++;
+            $("#playerIncorrectSpan").html(playerIncorrect)
+            console.log(playerIncorrect , "playerIncorrect")
+            // Empties our Right Game Display of previous buttons before creating new buttons
+            $("#rightGameDisplay").empty() 
+            ultimateTriviaGame()
+        }
+
+    });
+
+
 }
 
 // Calling ultimateTriviaGame function (DEF ABOVE) to randomly select a champion and generate the answerButtons on our Right Game Display
@@ -229,46 +268,6 @@ console.log("Where in the world is the rest of the code?") //FOR TESTING
 
 
 // PLACEHOLDER FOR SETTIMEOUT 300000 AFTER BUTTONS ARE MADE
-
-
-
-// PLACEHOLDER FOR ONCLICK FUNCTION USING $(THIS) TO COMPARE PLAYER CHOSEN BUTTON WITH CORRECT ANSWER
-$(".answerButtonClass").click(function() {
-
-    // Setting our access to the custom data attribute (DEF ABOVE) from answerButtonCreator function to a variable
-    // USED $(THIS) TO LOCALIZE DATA ATTRIBUTE TO CLICKED BUTTON
-    var abilityKeyOfClick = ($(this).data("ability-key-data"))
-
-    console.log(this , "answerButton click this test")
-    
-    console.log(($(this).data("ability-key-data")) , "ability-key-data test")
-    console.log(abilityKeyOfClick , "abilityKeyOfClick test")
-
-
-    // PLACEHOLDER FOR WIN/LOSS CONDITIONS, COUNTER INCREMENTS AND ALERTS
-
-    if (abilityKeyOfClick === "R") {
-        console.log("Correct")
-        alert("You chose correctly! Great job!")
-        playerCorrect++;
-        $("#playerCorrectSpan").html(playerCorrect)
-        console.log(playerCorrect , "playerCorrect")
-        // Empties our Right Game Display of previous buttons before creating new buttons
-        $("#rightGameDisplay").empty() 
-        ultimateTriviaGame()
-    }
-    else {
-        console.log("Incorrect")
-        alert("You chose incorrectly! This isn't Iron 4!")
-        playerIncorrect++;
-        $("#playerIncorrectSpan").html(playerIncorrect)
-        console.log(playerIncorrect , "playerIncorrect")
-        // Empties our Right Game Display of previous buttons before creating new buttons
-        $("#rightGameDisplay").empty() 
-        ultimateTriviaGame()
-    }
-
-});
 
 
 
