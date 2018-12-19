@@ -110,6 +110,10 @@ function getRandomChamp() {
     // ANSWER BUTTON CREATOR SCOPE ADJUSTMENT === WORKING
     // Answer Button Creator Function RUN VIA For loop abilityValues
     function answerButtorCreator() {
+
+        // Empties our Right Game Display of previous buttons before creating new buttons
+        $("#RightGameDisplay").empty()
+         
         // storing our jQuery button handler as a variable to make it easier to manipulate
         var answerButton = $("<button>");
 
@@ -223,9 +227,17 @@ $(".answerButtonClass").click(function() {
 
     if (abilityKeyOfClick === "R") {
         console.log("Correct")
+        alert("You chose correctly! Great job!")
+        playerCorrect++;
+        $("#playerCorrectSpan").html(playerCorrect)
+        console.log(playerCorrect , "playerCorrect")
     }
     else {
         console.log("Incorrect")
+        alert("You chose incorrectly! This isn't Iron 4!")
+        playerIncorrect++;
+        $("#playerIncorrectSpan").html(playerIncorrect)
+        console.log(playerIncorrect , "playerIncorrect")
     }
 
 });
