@@ -10,10 +10,10 @@ var championObject = {
         P: "Headshot", Q: "Piltover Peacemaker", W: "Yordle Snap Trap", E: "90 Caliber Net", R: "Ace in the Hole"
     },
     corki: {
-        P: "Hextech Munitions", Q: "Phosphorous Bomb", W: "Blood Rush", E: "Stand Aside", R: "Whirling Death"
+        P: "Hextech Munitions", Q: "Phosphorous Bomb", W: "Valkyrie", E: "Gatling Gun", R: "Missile Barrage"
     },
     draven: {
-        P: "League of Draven", Q: "Spinning Axe", W: "A2Text", E: "A3Text", R: "A4Text"
+        P: "League of Draven", Q: "Spinning Axe", W: "Blood Rush", E: "Stand Aside", R: "Whirling Death"
     },
     ezreal: {
         P: "Rising Spell Force", Q: "Mystic Shot", W: "Essence Flux", E: "Arcane Shift", R: "Trueshot Barrage"
@@ -85,7 +85,7 @@ var championKeys = (Object.keys(championObject))
 
 // Empty Arrays
 //to hold the current question's possible answers
-var currentChampion = ""
+var currentChampion = "" //NOT SURE IF NEEDED RIGHT NOW
 var currentAnswersArray = []
 //to hold the already guessed objects from championObject
 var usedChampions = []
@@ -99,29 +99,76 @@ var playerIncorrect = 0
 
 // Selecting a random champion from the championKeys
 function getRandomChamp() {
-    var randomNumber = getRandomInt(0 , 21)
+    var randomNumber = getRandomInt(0 , 21) //Calling our getRandomInt function (DEF BELOW) to determine a random number (bounds are index values of championKeys array)
+    var currentChampion = championKeys[randomNumber] //Setting a variable to hold our randomly selected champion.
 
-    var currentChampion = championKeys[randomNumber]
+    // NEED TO DO SOME CONTROL FLOW TO PREVENT DUPLICATES HERE
 
     console.log(currentChampion , "currentChampion") //FOR TESTING
 
 
+    // ANSWER BUTTON CREATOR SCOPE ADJUSTMENT === WORKING
+    // Answer Button Creator Function RUN VIA For loop abilityValues
+    function answerButtorCreator() {
+        // storing our jQuery button handler as a variable to make it easier to manipulate
+        var answerButton = $("<button>");
+
+        // Adding button classes for Bootstrap
+        answerButton.addClass("btn btn-primary btn-lg"); //BOOTSTRAP BUTTON STYLING
+        // NEED TO ADD CUSTOM CSS CLASS STYLING HERE
+
+        // Giving our button a type attribute "button" for Bootstrap
+        answerButton.attr("type", "button");
+
+        // Adding the Ability Text to the Answer Button with jQuery
+        answerButton.text(abilityValues[i]) //abilityValues[i] defined below, sorted from championObject
+
+        //NEED TO ASSIGN A data-ability-key = abilityKey[i] FOR ON CLICK WIN CONDITION COMPARISON HERE
+
+        // Adding each button to the Right Game Display via our HTML container with a pre-named ID
+        $("#rightGameDisplay").append(answerButton);
+    };
+
+
+    
+
     //WHY DOESN'T DOT NOTATION WORK HERE????
+    //console.log(championObject.currentChampion . "dot notation")
+
     console.log(championObject[currentChampion] , "bracket notation")
 
+    // Setting our currentChampion object access to a variable
     var answerObject = championObject[currentChampion]
-    console.log(answerObject , "answerObject")
+    console.log(answerObject , "answerObject") //FOR TESTING
 
+    // Setting our access to the Values of answerObject to a variable
+    var abilityValues = (Object.values(answerObject))
+    console.log(abilityValues , "abilityValues")
+
+    // Setting our access to the Keys of answerObject to a variable
     var abilityKeys = (Object.keys(answerObject))
     console.log(abilityKeys , "abilityKeys")
 
-  
     
+    
+    
+
+    //For Loop that accesses our championObject, and creates an answerButton for every ability in abilityValues
+    for (i = 0; i < abilityValues.length; i++) {
+        console.log(abilityValues[i]) //FOR TESTING
+        answerButtorCreator(); // answerButtonCreator (DEF ABOVE) inside getRandomChamp for proper scope
+
+    }
+    
+    // MAYBE USE PUSH TO FILL usedChampions ARRAY FOR DUPLICATE CONTROL FLOW HERE
+    usedChampions.push(currentChampion)
+    console.log(usedChampions) //FOR TESTING
+
 }
+
+// Calling getRandomChamp function (DEF ABOVE) to randomly select a champion and generate the answerButtons on our Right Game Display
 getRandomChamp(); //FOR TESTING === WORKING
 
-//PLACEHOLDER FOR OUR FOREACH TO GENERATE 5 BUTTONS FROM THE 5 ANSWERS IN currentAnswersArray
-// currentAnswersArray.forEach()
 
 //Champion Image Creation Function
 function championImageCreator() {
@@ -141,23 +188,7 @@ function championImageCreator() {
 championImageCreator(); //FOR TESTING
 console.log("Where in the world is the rest of the code?") //FOR TESTING
 
-// Answer Button Creator Function RUN VIA FOREACH championObject.champion.abilityLetter
-function answerButtorCreator() {
-    // storing our jQuery button handler as a variable to make it easier to manipulate
-    var answerButton = $("<button>");
 
-    // Adding button classes for Bootstrap
-    answerButton.addClass("btn btn-primary btn-lg"); //come back to add our button styling
-
-    // Giving our button a type attribute "button" for Bootstrap
-    answerButton.attr("type", "button");
-
-    // Adding the Ability Text to the Answer Button with jQuery
-    answerButton.text("Champion Ability") //Champion Ability Placeholder for testing
-
-    // Adding each button to the DOM via our HTML container with a pre-named ID
-    $("#rightGameDisplay").append(answerButton);
-};
 
 // PLACEHOLDER FOR SETTIMEOUT 300000 AFTER BUTTONS ARE MADE
 
