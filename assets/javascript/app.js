@@ -77,6 +77,12 @@ console.log(Object.entries(championObject.ashe));
 console.log(Object.keys(championObject , "championObject"))
 
 
+//Setting a name for our array of indexed objects from championObject (for selecting randomly by index location)
+var championKeys = (Object.keys(championObject))
+
+
+
+
 // Empty Arrays
 //to hold the current question's possible answers
 var currentChampion = ""
@@ -91,14 +97,28 @@ var playerIncorrect = 0
 // console.log(questionsRemaining , "questionsRemaining") //FOR TESTING
 
 
-// Selecting a random champion from the championObject
+// Selecting a random champion from the championKeys
 function getRandomChamp() {
+    var randomNumber = getRandomInt(0 , 21)
 
-    var randomChampion = championObject[getRandomInt(0 , 21)]
-    console.log(randomChampion , "Random Champion")
+    var currentChampion = championKeys[randomNumber]
+
+    console.log(currentChampion , "currentChampion") //FOR TESTING
+
+
+    //WHY DOESN'T DOT NOTATION WORK HERE????
+    console.log(championObject[currentChampion] , "bracket notation")
+
+    var answerObject = championObject[currentChampion]
+    console.log(answerObject , "answerObject")
+
+    var abilityKeys = (Object.keys(answerObject))
+    console.log(abilityKeys , "abilityKeys")
+
+  
     
 }
-getRandomChamp(); //TESTING
+getRandomChamp(); //FOR TESTING === WORKING
 
 //PLACEHOLDER FOR OUR FOREACH TO GENERATE 5 BUTTONS FROM THE 5 ANSWERS IN currentAnswersArray
 // currentAnswersArray.forEach()
