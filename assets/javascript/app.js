@@ -68,7 +68,13 @@ var championObject = {
     },
 };
 
+var championArray = []
+
 console.log(championObject.xayah.R); //FOR TESTING
+//TESTING OUR ACCESS TO championObject
+console.log(Object.values(championObject));
+console.log(Object.entries(championObject.ashe));
+console.log(Object.keys(championObject , "championObject"))
 
 
 // Empty Arrays
@@ -89,9 +95,10 @@ var playerIncorrect = 0
 function getRandomChamp() {
 
     var randomChampion = championObject[getRandomInt(0 , 21)]
+    console.log(randomChampion , "Random Champion")
     
 }
-
+getRandomChamp(); //TESTING
 
 //PLACEHOLDER FOR OUR FOREACH TO GENERATE 5 BUTTONS FROM THE 5 ANSWERS IN currentAnswersArray
 // currentAnswersArray.forEach()
