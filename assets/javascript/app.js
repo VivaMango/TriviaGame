@@ -86,7 +86,7 @@ var championKeys = (Object.keys(championObject))
 // Empty Arrays
 //to hold the current question's possible answers
 var currentChampion = "" //NOT SURE IF NEEDED RIGHT NOW
-var currentAnswersArray = []
+var currentAnswersArray = [] //NOT SURE IF BEING USED RIGHT NOW WILL CHECK LATER
 //to hold the already guessed objects from championObject
 var usedChampions = []
 // Empty Score Counter for our player
@@ -97,7 +97,9 @@ var playerIncorrect = 0
 // console.log(questionsRemaining , "questionsRemaining") //FOR TESTING
 
 
-// Selecting a random champion from the championKeys
+// BEGIN ultimateTriviaGame FUNCTION DECLARATION
+// BEGIN ultimateTriviaGame FUNCTION DECLARATION
+// BEGIN ultimateTriviaGame FUNCTION DECLARATION
 function ultimateTriviaGame() {
     
     
@@ -126,11 +128,10 @@ function ultimateTriviaGame() {
     var uniqueChampion = randomChampion(randomNumber)
     console.log (uniqueChampion , "uniqueChamp")
 
-    // NEED TO DO SOME CONTROL FLOW TO PREVENT DUPLICATES HERE
 
     // console.log(currentChampion , "currentChampion") //FOR TESTING COMMENTED OUT TO SEE IF REMOVABLE
 
-
+    // STILL NEED TO RANDOMIZE BUTTONS WHEN PLACED IN GAMEDISPLAY
     // ANSWER BUTTON CREATOR SCOPE ADJUSTMENT === WORKING
     // Answer Button Creator Function RUN VIA For loop abilityValues
     function answerButtorCreator() {
@@ -142,7 +143,6 @@ function ultimateTriviaGame() {
         // Adding button classes for Bootstrap
         answerButton.addClass("btn btn-primary btn-lg"); //BOOTSTRAP BUTTON STYLING
        
-        // NEED TO ADD CUSTOM CSS CLASS STYLING HERE
         //CUSTOM CLASS FOR CSS AND ONCLICK LISTENER
         answerButton.addClass("answerButtonClass")
 
@@ -152,20 +152,21 @@ function ultimateTriviaGame() {
         // Adding the Ability Text to the Answer Button with jQuery
         answerButton.text(abilityValues[i]) //abilityValues[i] defined below, sorted from championObject
 
-        //NEED TO ASSIGN A data-ability-key = abilityKey[i] FOR ON CLICK WIN CONDITION COMPARISON HERE
 
         // saving value of current ability i in loop (DEF BELOW) to a variable
         var abilityKeyData = abilityKeys[i]
 
-        // converting abilityKeyData toString to use with HTML5 custom data attributes
+        // converting abilityKeyData toString to use with HTML5 custom data attributes FOR WIN CONDITION
         var abilityKeyDataString = abilityKeyData.toString()
 
+        //Applying our custom data attribute to each button based on abilityKey
         console.log(abilityKeyDataString , "abilityKeyDataString") //FOR TESTING
         answerButton.data("ability-key-data" , abilityKeyDataString)//FOR TESTING
 
         // Adding each button to the Right Game Display via our HTML container with a pre-named ID
         $("#rightGameDisplay").append(answerButton);
     };
+
 
 
     
@@ -219,7 +220,7 @@ function ultimateTriviaGame() {
 
         if (abilityKeyOfClick === "R") {
             console.log("Correct")
-            alert("You chose correctly! Great job!")
+            alert("You chose correctly! Great job!") //REPLACE WITH SETTIMEOUT SHOW WAITGIF
             playerCorrect++;
             $("#playerCorrectSpan").html(playerCorrect)
             console.log(playerCorrect , "playerCorrect")
@@ -229,7 +230,7 @@ function ultimateTriviaGame() {
         }
         else {
             console.log("Incorrect")
-            alert("You chose incorrectly! This isn't Iron 4!")
+            alert("You chose incorrectly! This isn't Iron 4!") //REPLACE WITH SETTIMEOUT SHOW WAITGIF
             playerIncorrect++;
             $("#playerIncorrectSpan").html(playerIncorrect)
             console.log(playerIncorrect , "playerIncorrect")
@@ -238,16 +239,47 @@ function ultimateTriviaGame() {
             ultimateTriviaGame()
         }
 
+
     });
 
+    // COUNTDOWN TIMER PER QUESTION FUNCTION
+    function questionCountdown() {
+        var timerSpan = $("#timerSpan")
+        
+        
+           
+        var timerValue = 30
 
+        var timerInterval = setInterval(timerLoop , 1000)
+                
+
+            // Function to set our interval to + timeout condition and reset
+        function timerLoop () {
+            if (timerValue === 0) {
+                alert("You are out of time! Next Champion!") //REPLACE WITH SETTIMEOUT SHOW WAITGIF
+                clearInterval(timerInterval)
+                $("#rightGameDisplay").empty()
+                playerIncorrect++;
+                ultimateTriviaGame()
+            }
+            else {
+                timerValue--;
+                timerSpan.html(timerValue)
+                console.log(timerValue , "timerValue")
+            }
+        }
+    }
+    questionCountdown() //Runs questionCountdown inside first game load
 }
+// END OF ultimateTriviaGame FUNCTION DECLARATION
+// END OF ultimateTriviaGame FUNCTION DECLARATION
+// END OF ultimateTriviaGame FUNCTION DECLARATION
+
 
 // Calling ultimateTriviaGame function (DEF ABOVE) to randomly select a champion and generate the answerButtons on our Right Game Display
 ultimateTriviaGame(); //FOR TESTING === WORKING
 
-
-//Champion Image Creation Function
+//Champion Image Creation Function WILL BE MOVED INTO ultimateGameTrivia
 function championImageCreator() {
     // storing our jQuery image handler as a variable to make it easier to manipulate
     var championImage = $("<img>");
@@ -264,16 +296,6 @@ function championImageCreator() {
 
 championImageCreator(); //FOR TESTING
 console.log("Where in the world is the rest of the code?") //FOR TESTING
-
-
-
-// PLACEHOLDER FOR SETTIMEOUT 300000 AFTER BUTTONS ARE MADE
-
-
-
-
-// PLACEHOLDER FOR RESTART FUNCTION AND INTERVAL RESET FOR TIMER
-
 
 
 //   Declaring our function to generate a random integer between two values. 
