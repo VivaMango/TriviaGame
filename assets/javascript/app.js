@@ -256,10 +256,11 @@ function ultimateTriviaGame() {
             // Function to set our interval to + timeout condition and reset
         function timerLoop () {
             if (timerValue === 0) {
+                playerIncorrect++;
                 alert("You are out of time! Next Champion!") //REPLACE WITH SETTIMEOUT SHOW WAITGIF
                 clearInterval(timerInterval)
                 $("#rightGameDisplay").empty()
-                playerIncorrect++;
+                $("#playerIncorrectSpan").html(playerIncorrect)
                 ultimateTriviaGame()
             }
             else {
