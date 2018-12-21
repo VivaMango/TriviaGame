@@ -68,13 +68,13 @@ var championObject = {
     },
 };
 
-var championArray = []
+var championArray = [] //NOT IN USE FLAGGED FOR REMOVAL
 
 console.log(championObject.xayah.R); //FOR TESTING
 //TESTING OUR ACCESS TO championObject
-console.log(Object.values(championObject));
-console.log(Object.entries(championObject.ashe));
-console.log(Object.keys(championObject , "championObject"))
+console.log(Object.values(championObject));//FOR TESTING
+console.log(Object.entries(championObject.ashe));//FOR TESTING
+console.log(Object.keys(championObject , "championObject"))//FOR TESTING
 
 
 //Setting a name for our array of indexed objects from championObject (for selecting randomly by index location)
@@ -86,10 +86,10 @@ var championKeys = (Object.keys(championObject))
 // Empty Arrays
 //to hold the current question's possible answers
 var currentChampion = "" //NOT SURE IF NEEDED RIGHT NOW
-var currentAnswersArray = [] //NOT SURE IF BEING USED RIGHT NOW WILL CHECK LATER
-//to hold the already guessed objects from championObject
+var currentAnswersArray = [] //NOT IN USE FLAGGED FOR REMOVAL
+//to hold the already selected objects from championObject
 var usedChampions = []
-// Empty Score Counter for our player
+// Empty Score Counters for our player
 var playerCorrect = 0
 var playerIncorrect = 0
 // Other Counters
@@ -106,18 +106,21 @@ function ultimateTriviaGame() {
     var randomNumber = getRandomInt(0 , 21) //Calling our getRandomInt function (DEF BELOW) to determine a random number (bounds are index values of championKeys array)
     // var currentChampion = championKeys[randomNumber] //Setting a variable to hold our randomly selected champion. COMMENTED OUT FOR TESTING IF REMOVABLE
     function randomChampion(randomNumber) {
-        var selectedChampion = championKeys[randomNumber]
-        var booleanUsedChamp = usedChampions.includes(selectedChampion , 0)
-        console.log(selectedChampion , "selectedChampion")
-        console.log(booleanUsedChamp , "booleanUsedChamp")
+        var selectedChampion = championKeys[randomNumber] //setting our randomly selected champion from championObject as a variable
+        var booleanUsedChamp = usedChampions.includes(selectedChampion , 0) //Checks array usedChampions to see if selectedChampion has been selected already this session
+        console.log(selectedChampion , "selectedChampion") //FOR TESTING
+        console.log(booleanUsedChamp , "booleanUsedChamp") //FOR TESTING
+
+        // DUPLICATE SELECTION PREVENTION
+        // IF/ELSE CHECKS if randomChampion has already been put into usedChampions array or not
         if (booleanUsedChamp === true) {
-            var preventDuplicate = getRandomInt(0 , 21)
-            var championReroll = randomChampion(preventDuplicate)
-            console.log(championReroll , "ifchampionReroll")
+            var preventDuplicate = getRandomInt(0 , 21) //randomizes another champion if selectedChampion was in usedChampion
+            var championReroll = randomChampion(preventDuplicate) //setting new random champion as a variable
+            console.log(championReroll , "ifchampionReroll") //FOR TESTING
             return championReroll
         }
         else {
-            console.log(selectedChampion , "elseselectedChampion")
+            console.log(selectedChampion , "elseselectedChampion") //FOR TESTING
             return selectedChampion
         }
 
@@ -125,8 +128,9 @@ function ultimateTriviaGame() {
     randomChampion(randomNumber) //FORTESTING
     console.log((randomChampion(randomNumber)) , "calling randomChampion function") //RETURNS A CHAMPION NAME
 
-    var uniqueChampion = randomChampion(randomNumber)
-    console.log (uniqueChampion , "uniqueChamp")
+    // RUNS OUR randomChampion function and saves the uniqueChampion to a variable
+    var uniqueChampion = randomChampion(randomNumber) //setting our unique champion "question" as a variable
+    console.log (uniqueChampion , "uniqueChamp") //FOR TESTING
 
 
     // console.log(currentChampion , "currentChampion") //FOR TESTING COMMENTED OUT TO SEE IF REMOVABLE
@@ -182,11 +186,11 @@ function ultimateTriviaGame() {
 
     // Setting our access to the Values of answerObject to a variable
     var abilityValues = (Object.values(answerObject))
-    console.log(abilityValues , "abilityValues")
+    console.log(abilityValues , "abilityValues") //FOR TESTING
 
     // Setting our access to the Keys of answerObject to a variable
     var abilityKeys = (Object.keys(answerObject))
-    console.log(abilityKeys , "abilityKeys")
+    console.log(abilityKeys , "abilityKeys") //FOR TESTING
 
     
     
@@ -210,63 +214,63 @@ function ultimateTriviaGame() {
         // USED $(THIS) TO LOCALIZE DATA ATTRIBUTE TO CLICKED BUTTON
         var abilityKeyOfClick = ($(this).data("ability-key-data"))
 
-        console.log(this , "answerButton click this test")
+        console.log(this , "answerButton click this test") //FOR TESTING
     
-        console.log(($(this).data("ability-key-data")) , "ability-key-data test")
-        console.log(abilityKeyOfClick , "abilityKeyOfClick test")
+        console.log(($(this).data("ability-key-data")) , "ability-key-data test") //FOR TESTING
+        console.log(abilityKeyOfClick , "abilityKeyOfClick test") //FOR TESTING
 
 
-        // PLACEHOLDER FOR WIN/LOSS CONDITIONS, COUNTER INCREMENTS AND ALERTS
+        //WIN/LOSS CONDITIONS, COUNTER INCREMENTS AND ALERTS(TO BE REPLACED WITH A SETTIMEOUT AND WAITGIF BETWEEN QUESTIONS)
 
         if (abilityKeyOfClick === "R") {
-            console.log("Correct")
-            alert("You chose correctly! Great job!") //REPLACE WITH SETTIMEOUT SHOW WAITGIF
-            playerCorrect++;
-            $("#playerCorrectSpan").html(playerCorrect)
-            console.log(playerCorrect , "playerCorrect")
+            console.log("Correct") //FOR TESTING
+            alert("You chose correctly! Great job!") //REPLACE WITH SETTIMEOUT SHOW WAITGIF BETWEEN QUESTIONS
+            playerCorrect++; //increments correct answer counter
+            $("#playerCorrectSpan").html(playerCorrect) //updates the counter on the DOM
+            console.log(playerCorrect , "playerCorrect") //FOR TESTING
+            //CLEARINTERVAL HERE WHEN SCOPE FIXED
             // Empties our Right Game Display of previous buttons before creating new buttons
-            $("#rightGameDisplay").empty() 
-            ultimateTriviaGame()
+            $("#rightGameDisplay").empty() //empties buttons from previous questions from gameDisplay
+            ultimateTriviaGame() //recurring function for next question
         }
         else {
-            console.log("Incorrect")
-            alert("You chose incorrectly! This isn't Iron 4!") //REPLACE WITH SETTIMEOUT SHOW WAITGIF
-            playerIncorrect++;
-            $("#playerIncorrectSpan").html(playerIncorrect)
-            console.log(playerIncorrect , "playerIncorrect")
+            console.log("Incorrect") //FOR TESTING
+            alert("You chose incorrectly! This isn't Iron 4!") //REPLACE WITH SETTIMEOUT SHOW WAITGIF BETWEEN QUESTIONS
+            playerIncorrect++; //increments incorrect answer counter
+            $("#playerIncorrectSpan").html(playerIncorrect) //updates the counter on the DOM
+            console.log(playerIncorrect , "playerIncorrect") //FOR TESTING
+            //CLEARINTERVAL HERE WHEN SCOPE FIXED
             // Empties our Right Game Display of previous buttons before creating new buttons
-            $("#rightGameDisplay").empty() 
-            ultimateTriviaGame()
+            $("#rightGameDisplay").empty() //empties buttons from previous questions from gameDisplay
+            ultimateTriviaGame() //recurring function for next question
         }
 
 
     });
-
+    // NEED TO MOVE THIS FUNCTION TO SOLVE SCOPING ISSUE WITH WIN CONDITION
     // COUNTDOWN TIMER PER QUESTION FUNCTION
     function questionCountdown() {
-        var timerSpan = $("#timerSpan")
-        
-        
+        var timerSpan = $("#timerSpan") //jQuery DOM timer handler saved as variable
            
-        var timerValue = 30
+        var timerValue = 30 //default value for timer (30 sec) MOVE TO GLOBAL SCOPE?
 
-        var timerInterval = setInterval(timerLoop , 1000)
+        var timerInterval = setInterval(timerLoop , 1000) //setting a 1 sec interval for our function to decrement timer (if time remaining) else end question
                 
 
             // Function to set our interval to + timeout condition and reset
         function timerLoop () {
             if (timerValue === 0) {
-                playerIncorrect++;
-                alert("You are out of time! Next Champion!") //REPLACE WITH SETTIMEOUT SHOW WAITGIF
-                clearInterval(timerInterval)
-                $("#rightGameDisplay").empty()
-                $("#playerIncorrectSpan").html(playerIncorrect)
-                ultimateTriviaGame()
+                playerIncorrect++; //increments incorrect answer counter
+                alert("You are out of time! Next Champion!") //REPLACE WITH SETTIMEOUT SHOW WAITGIF BETWEEN QUESTIONS
+                clearInterval(timerInterval) //clearing our timerInterval for the next question
+                $("#rightGameDisplay").empty() //empties buttons from previous questions from gameDisplay
+                $("#playerIncorrectSpan").html(playerIncorrect) //updates the counter on the DOM
+                ultimateTriviaGame() //recurring function for next question
             }
             else {
-                timerValue--;
-                timerSpan.html(timerValue)
-                console.log(timerValue , "timerValue")
+                timerValue--; //decrements the time remaining by one second
+                timerSpan.html(timerValue) //update the timer on the DOM
+                console.log(timerValue , "timerValue") //FOR TESTING
             }
         }
     }
@@ -281,6 +285,7 @@ function ultimateTriviaGame() {
 ultimateTriviaGame(); //FOR TESTING === WORKING
 
 //Champion Image Creation Function WILL BE MOVED INTO ultimateGameTrivia
+// IMAGES STILL NEED TO BE SOURCED THEN ADD THIS TO answerButtonCreator
 function championImageCreator() {
     // storing our jQuery image handler as a variable to make it easier to manipulate
     var championImage = $("<img>");
@@ -289,14 +294,14 @@ function championImageCreator() {
     championImage.addClass("championImageClass"); //PLACEHOLDER FOR BOOTSTRAP BUTTON CLASSES
 
     // using jQuery to add the image link attribute to our container
-    championImage.attr("src", "assets/images/carmenSandiego.png"); //relative path to our image file COMMENTED OUT UNTIL IMAGES ARE ADDED
+    championImage.attr("src", "assets/images/carmenSandiego.png"); //relative path to our image file TEST IMAGE ONLY FOR NOW
 
-    // Adding each button to the DOM via our HTML container with a pre-named ID
+    // Adding each image to the DOM via our HTML container with a pre-named ID
     $("#championImageSpan").append(championImage);
 };
 
 championImageCreator(); //FOR TESTING
-console.log("Where in the world is the rest of the code?") //FOR TESTING
+console.log("Where in the world are the rest of the images") //FOR TESTING
 
 
 //   Declaring our function to generate a random integer between two values. 
