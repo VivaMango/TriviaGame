@@ -103,6 +103,8 @@ var playerIncorrect = 0
 function ultimateTriviaGame() {
     var timerInterval
     
+    $("#rightGameDisplay").empty();
+
     var randomNumber = getRandomInt(0 , 21) //Calling our getRandomInt function (DEF BELOW) to determine a random number (bounds are index values of championKeys array)
     // var currentChampion = championKeys[randomNumber] //Setting a variable to hold our randomly selected champion. COMMENTED OUT FOR TESTING IF REMOVABLE
     function randomChampion(randomNumber) {
@@ -207,6 +209,10 @@ function ultimateTriviaGame() {
     usedChampions.push(uniqueChampion) //REPLACED currentChampion with uniqueChampion
     console.log(usedChampions) //FOR TESTING
 
+    // Adding uniqueChampion "question" to rightGameDisplay
+    uniqueChampionUpper = uniqueChampion.toUpperCase() //making our uniqueChampion all upper case letters for display purposes
+    $("#rightGameDisplay").prepend(uniqueChampionUpper + "<br>")
+
     // NEED TO MOVE THIS FUNCTION TO SOLVE SCOPING ISSUE WITH WIN CONDITION
     // COUNTDOWN TIMER PER QUESTION FUNCTION
     function questionCountdown() {
@@ -250,14 +256,19 @@ function ultimateTriviaGame() {
 
         if (abilityKeyOfClick === "R") {
             console.log("Correct") //FOR TESTING
-            alert("You chose correctly! Great job!") //REPLACE WITH SETTIMEOUT SHOW WAITGIF BETWEEN QUESTIONS
+            // alert("You chose correctly! Great job!") //REPLACE WITH SETTIMEOUT SHOW WAITGIF BETWEEN QUESTIONS
             playerCorrect++; //increments correct answer counter
             $("#playerCorrectSpan").html(playerCorrect) //updates the counter on the DOM
             console.log(playerCorrect , "playerCorrect") //FOR TESTING
             clearInterval(timerInterval)
             // Empties our Right Game Display of previous buttons before creating new buttons
             $("#rightGameDisplay").empty() //empties buttons from previous questions from gameDisplay
-            ultimateTriviaGame() //recurring function for next question
+            var makeWaitGif = $("<img>")
+            makeWaitGif.attr("src" , "assets/images/waitgif.gif")
+            makeWaitGif.attr("alt" , "waitgif")
+            $("#rightGameDisplay").append(makeWaitGif)
+            setTimeout(ultimateTriviaGame , 3000)
+            // ultimateTriviaGame() //recurring function for next question
         }
         else {
             console.log("Incorrect") //FOR TESTING
