@@ -101,7 +101,7 @@ var playerIncorrect = 0
 // BEGIN ultimateTriviaGame FUNCTION DECLARATION
 // BEGIN ultimateTriviaGame FUNCTION DECLARATION
 function ultimateTriviaGame() {
-    
+    var timerInterval
     
     var randomNumber = getRandomInt(0 , 21) //Calling our getRandomInt function (DEF BELOW) to determine a random number (bounds are index values of championKeys array)
     // var currentChampion = championKeys[randomNumber] //Setting a variable to hold our randomly selected champion. COMMENTED OUT FOR TESTING IF REMOVABLE
@@ -207,6 +207,32 @@ function ultimateTriviaGame() {
     usedChampions.push(uniqueChampion) //REPLACED currentChampion with uniqueChampion
     console.log(usedChampions) //FOR TESTING
 
+    // NEED TO MOVE THIS FUNCTION TO SOLVE SCOPING ISSUE WITH WIN CONDITION
+    // COUNTDOWN TIMER PER QUESTION FUNCTION
+    function questionCountdown() {
+        var timerSpan = $("#timerSpan") //jQuery DOM timer handler saved as variable
+           
+        var timerValue = 30 //default value for timer (30 sec) MOVE TO GLOBAL SCOPE?
+                
+        timerInterval = setInterval(timerLoop , 1000) //setting a 1 sec interval for our function to decrement timer (if time remaining) else end question
+            // Function to set our interval to + timeout condition and reset
+        function timerLoop () {
+            if (timerValue === 0) {
+                playerIncorrect++; //increments incorrect answer counter
+                alert("You are out of time! Next Champion!") //REPLACE WITH SETTIMEOUT SHOW WAITGIF BETWEEN QUESTIONS
+                clearInterval(timerInterval) //clearing our timerInterval for the next question
+                $("#rightGameDisplay").empty() //empties buttons from previous questions from gameDisplay
+                $("#playerIncorrectSpan").html(playerIncorrect) //updates the counter on the DOM
+                ultimateTriviaGame() //recurring function for next question
+            }
+            else {
+                timerValue--; //decrements the time remaining by one second
+                timerSpan.html(timerValue) //update the timer on the DOM
+                console.log(timerValue , "timerValue") //FOR TESTING
+            }
+        }
+    }
+
     // PLACEHOLDER FOR ONCLICK FUNCTION USING $(THIS) TO COMPARE PLAYER CHOSEN BUTTON WITH CORRECT ANSWER
     $(".answerButtonClass").click(function() {
 
@@ -228,7 +254,7 @@ function ultimateTriviaGame() {
             playerCorrect++; //increments correct answer counter
             $("#playerCorrectSpan").html(playerCorrect) //updates the counter on the DOM
             console.log(playerCorrect , "playerCorrect") //FOR TESTING
-            //CLEARINTERVAL HERE WHEN SCOPE FIXED
+            clearInterval(timerInterval)
             // Empties our Right Game Display of previous buttons before creating new buttons
             $("#rightGameDisplay").empty() //empties buttons from previous questions from gameDisplay
             ultimateTriviaGame() //recurring function for next question
@@ -240,6 +266,8 @@ function ultimateTriviaGame() {
             $("#playerIncorrectSpan").html(playerIncorrect) //updates the counter on the DOM
             console.log(playerIncorrect , "playerIncorrect") //FOR TESTING
             //CLEARINTERVAL HERE WHEN SCOPE FIXED
+            clearInterval(timerInterval)
+
             // Empties our Right Game Display of previous buttons before creating new buttons
             $("#rightGameDisplay").empty() //empties buttons from previous questions from gameDisplay
             ultimateTriviaGame() //recurring function for next question
@@ -247,33 +275,7 @@ function ultimateTriviaGame() {
 
 
     });
-    // NEED TO MOVE THIS FUNCTION TO SOLVE SCOPING ISSUE WITH WIN CONDITION
-    // COUNTDOWN TIMER PER QUESTION FUNCTION
-    function questionCountdown() {
-        var timerSpan = $("#timerSpan") //jQuery DOM timer handler saved as variable
-           
-        var timerValue = 30 //default value for timer (30 sec) MOVE TO GLOBAL SCOPE?
-
-        var timerInterval = setInterval(timerLoop , 1000) //setting a 1 sec interval for our function to decrement timer (if time remaining) else end question
-                
-
-            // Function to set our interval to + timeout condition and reset
-        function timerLoop () {
-            if (timerValue === 0) {
-                playerIncorrect++; //increments incorrect answer counter
-                alert("You are out of time! Next Champion!") //REPLACE WITH SETTIMEOUT SHOW WAITGIF BETWEEN QUESTIONS
-                clearInterval(timerInterval) //clearing our timerInterval for the next question
-                $("#rightGameDisplay").empty() //empties buttons from previous questions from gameDisplay
-                $("#playerIncorrectSpan").html(playerIncorrect) //updates the counter on the DOM
-                ultimateTriviaGame() //recurring function for next question
-            }
-            else {
-                timerValue--; //decrements the time remaining by one second
-                timerSpan.html(timerValue) //update the timer on the DOM
-                console.log(timerValue , "timerValue") //FOR TESTING
-            }
-        }
-    }
+    
     questionCountdown() //Runs questionCountdown inside first game load
 }
 // END OF ultimateTriviaGame FUNCTION DECLARATION
