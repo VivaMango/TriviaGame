@@ -225,11 +225,16 @@ function ultimateTriviaGame() {
         function timerLoop () {
             if (timerValue === 0) {
                 playerIncorrect++; //increments incorrect answer counter
-                alert("You are out of time! Next Champion!") //REPLACE WITH SETTIMEOUT SHOW WAITGIF BETWEEN QUESTIONS
+                // alert("You are out of time! Next Champion!") //REPLACE WITH SETTIMEOUT SHOW WAITGIF BETWEEN QUESTIONS
                 clearInterval(timerInterval) //clearing our timerInterval for the next question
                 $("#rightGameDisplay").empty() //empties buttons from previous questions from gameDisplay
                 $("#playerIncorrectSpan").html(playerIncorrect) //updates the counter on the DOM
-                ultimateTriviaGame() //recurring function for next question
+                var makeWaitGif = $("<img>")
+                makeWaitGif.attr("src" , "assets/images/waitgif.gif")
+                makeWaitGif.attr("alt" , "waitgif")
+                $("#rightGameDisplay").append(makeWaitGif)
+                setTimeout(ultimateTriviaGame , 3000)
+                // ultimateTriviaGame() //recurring function for next question
             }
             else {
                 timerValue--; //decrements the time remaining by one second
@@ -272,7 +277,7 @@ function ultimateTriviaGame() {
         }
         else {
             console.log("Incorrect") //FOR TESTING
-            alert("You chose incorrectly! This isn't Iron 4!") //REPLACE WITH SETTIMEOUT SHOW WAITGIF BETWEEN QUESTIONS
+            // alert("You chose incorrectly! This isn't Iron 4!") //REPLACE WITH SETTIMEOUT SHOW WAITGIF BETWEEN QUESTIONS
             playerIncorrect++; //increments incorrect answer counter
             $("#playerIncorrectSpan").html(playerIncorrect) //updates the counter on the DOM
             console.log(playerIncorrect , "playerIncorrect") //FOR TESTING
@@ -281,7 +286,12 @@ function ultimateTriviaGame() {
 
             // Empties our Right Game Display of previous buttons before creating new buttons
             $("#rightGameDisplay").empty() //empties buttons from previous questions from gameDisplay
-            ultimateTriviaGame() //recurring function for next question
+            var makeWaitGif = $("<img>")
+            makeWaitGif.attr("src" , "assets/images/waitgif.gif")
+            makeWaitGif.attr("alt" , "waitgif")
+            $("#rightGameDisplay").append(makeWaitGif)
+            setTimeout(ultimateTriviaGame , 3000)
+            // ultimateTriviaGame() //recurring function for next question
         }
 
 
