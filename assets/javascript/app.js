@@ -155,6 +155,8 @@ function ultimateTriviaGame() {
         // Giving our button a type attribute "button" for Bootstrap
         answerButton.attr("type", "button");
 
+       
+
         // Adding the Ability Text to the Answer Button with jQuery
         answerButton.text(abilityValues[i]) //abilityValues[i] defined below, sorted from championObject
 
@@ -168,6 +170,9 @@ function ultimateTriviaGame() {
         //Applying our custom data attribute to each button based on abilityKey
         console.log(abilityKeyDataString , "abilityKeyDataString") //FOR TESTING
         answerButton.data("ability-key-data" , abilityKeyDataString)//FOR TESTING
+        
+        // Adding an ID = to abilityKey for displaying correct answer.
+        answerButton.attr("id" , abilityKeyDataString)
 
         // Adding each button to the Right Game Display via our HTML container with a pre-named ID
         $("#rightGameDisplay").append(answerButton);
@@ -258,6 +263,19 @@ function ultimateTriviaGame() {
 
 
         //WIN/LOSS CONDITIONS, COUNTER INCREMENTS AND ALERTS(TO BE REPLACED WITH A SETTIMEOUT AND WAITGIF BETWEEN QUESTIONS)
+        function emptyGameDisplay() {
+            $("#rightGameDisplay").empty()
+        }
+        function makeWaitGif() {
+            makeWaitGifDEF = $("<img>")
+            makeWaitGifDEF.attr("src" , "assets/images/waitgif.gif")
+            makeWaitGifDEF.attr("alt" , "waitgif")
+            $("#rightGameDisplay").append(makeWaitGifDEF)
+            setTimeout(emptyGameDisplay , 2000)
+                
+            
+        }
+
 
         if (abilityKeyOfClick === "R") {
             console.log("Correct") //FOR TESTING
@@ -283,12 +301,14 @@ function ultimateTriviaGame() {
             console.log(playerIncorrect , "playerIncorrect") //FOR TESTING
             //CLEARINTERVAL HERE WHEN SCOPE FIXED
             clearInterval(timerInterval)
-
+            // Displaying the correct answer
+            $("#R").addClass("btn-success")
+            // setTimeout(makeWaitGif, 2000)
             // Empties our Right Game Display of previous buttons before creating new buttons
-            $("#rightGameDisplay").empty() //empties buttons from previous questions from gameDisplay
-            var makeWaitGif = $("<img>")
-            makeWaitGif.attr("src" , "assets/images/waitgif.gif")
-            makeWaitGif.attr("alt" , "waitgif")
+            // $("#rightGameDisplay").empty() //empties buttons from previous questions from gameDisplay
+            // var makeWaitGif = $("<img>")
+            // makeWaitGif.attr("src" , "assets/images/waitgif.gif")
+            // makeWaitGif.attr("alt" , "waitgif")
             $("#rightGameDisplay").append(makeWaitGif)
             setTimeout(ultimateTriviaGame , 3000)
             // ultimateTriviaGame() //recurring function for next question
@@ -298,6 +318,8 @@ function ultimateTriviaGame() {
     });
     
     questionCountdown() //Runs questionCountdown inside first game load
+    
+    
 }
 // END OF ultimateTriviaGame FUNCTION DECLARATION
 // END OF ultimateTriviaGame FUNCTION DECLARATION
