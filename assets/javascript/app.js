@@ -70,6 +70,7 @@ var championObject = {
 
 var championArray = [] //NOT IN USE FLAGGED FOR REMOVAL
 
+console.log(championObject , "championObject PREDELETE")
 console.log(championObject.xayah.R); //FOR TESTING
 //TESTING OUR ACCESS TO championObject
 console.log(Object.values(championObject));//FOR TESTING
@@ -218,6 +219,24 @@ function ultimateTriviaGame() {
     uniqueChampionUpper = uniqueChampion.toUpperCase() //making our uniqueChampion all upper case letters for display purposes
     $("#rightGameDisplay").prepend(uniqueChampionUpper + "<br>")
 
+
+    
+    console.log(championObject , "championObject POSTDELETE")
+
+    //WIN/LOSS CONDITIONS, COUNTER INCREMENTS AND ALERTS(TO BE REPLACED WITH A SETTIMEOUT AND WAITGIF BETWEEN QUESTIONS)
+    function emptyGameDisplay() {
+        $("#rightGameDisplay").empty()
+    }
+    function makeWaitGif() {
+        makeWaitGifDEF = $("<img>")
+        makeWaitGifDEF.attr("src" , "assets/images/waitgif.gif")
+        makeWaitGifDEF.attr("alt" , "waitgif")
+        $("#rightGameDisplay").append(makeWaitGifDEF)
+        setTimeout(emptyGameDisplay , 2000)
+            
+        
+    }
+
     // NEED TO MOVE THIS FUNCTION TO SOLVE SCOPING ISSUE WITH WIN CONDITION
     // COUNTDOWN TIMER PER QUESTION FUNCTION
     function questionCountdown() {
@@ -232,12 +251,22 @@ function ultimateTriviaGame() {
                 playerIncorrect++; //increments incorrect answer counter
                 // alert("You are out of time! Next Champion!") //REPLACE WITH SETTIMEOUT SHOW WAITGIF BETWEEN QUESTIONS
                 clearInterval(timerInterval) //clearing our timerInterval for the next question
-                $("#rightGameDisplay").empty() //empties buttons from previous questions from gameDisplay
+                // $("#rightGameDisplay").empty() //empties buttons from previous questions from gameDisplay
                 $("#playerIncorrectSpan").html(playerIncorrect) //updates the counter on the DOM
-                var makeWaitGif = $("<img>")
-                makeWaitGif.attr("src" , "assets/images/waitgif.gif")
-                makeWaitGif.attr("alt" , "waitgif")
+
+                $("#R").addClass("btn-success")
+            // setTimeout(makeWaitGif, 2000)
+            // Empties our Right Game Display of previous buttons before creating new buttons
+            // $("#rightGameDisplay").empty() //empties buttons from previous questions from gameDisplay
+            // var makeWaitGif = $("<img>")
+            // makeWaitGif.attr("src" , "assets/images/waitgif.gif")
+            // makeWaitGif.attr("alt" , "waitgif")
                 $("#rightGameDisplay").append(makeWaitGif)
+                // setTimeout(ultimateTriviaGame , 3000)
+                // var makeWaitGif = $("<img>")
+                // makeWaitGif.attr("src" , "assets/images/waitgif.gif")
+                // makeWaitGif.attr("alt" , "waitgif")
+                // $("#rightGameDisplay").append(makeWaitGif)
                 setTimeout(ultimateTriviaGame , 3000)
                 // ultimateTriviaGame() //recurring function for next question
             }
@@ -262,19 +291,7 @@ function ultimateTriviaGame() {
         console.log(abilityKeyOfClick , "abilityKeyOfClick test") //FOR TESTING
 
 
-        //WIN/LOSS CONDITIONS, COUNTER INCREMENTS AND ALERTS(TO BE REPLACED WITH A SETTIMEOUT AND WAITGIF BETWEEN QUESTIONS)
-        function emptyGameDisplay() {
-            $("#rightGameDisplay").empty()
-        }
-        function makeWaitGif() {
-            makeWaitGifDEF = $("<img>")
-            makeWaitGifDEF.attr("src" , "assets/images/waitgif.gif")
-            makeWaitGifDEF.attr("alt" , "waitgif")
-            $("#rightGameDisplay").append(makeWaitGifDEF)
-            setTimeout(emptyGameDisplay , 2000)
-                
-            
-        }
+        
 
 
         if (abilityKeyOfClick === "R") {
@@ -318,6 +335,7 @@ function ultimateTriviaGame() {
     });
     
     questionCountdown() //Runs questionCountdown inside first game load
+    
     
     
 }
